@@ -29,7 +29,7 @@
             <li><a href="#services">Services</a></li>
             <li><a href="#skills">Skills</a></li>
             <li><a href="#contact">Contact</a></li>
-            <li><a href="/admin" style="color: #007bff;">Admin</a></li>
+            {{-- <li><a href="/admin" style="color: #007bff;">Admin</a></li> --}}
         </ul>
         <div class="nav-status"></div>
     </nav>
@@ -84,34 +84,34 @@
                 <div class="about-info-col">
                     {{-- <span class="section-eyebrow">01 // THE_ORIGIN</span> --}}
                     <h2 class="section-heading">{{ $about->heading ?? 'Hi There! I\'m Muhammad Adeel' }}</h2>
-                    <p class="about-role text-blue">{{ $about->role ?? 'Full-Stack Developer & UI/UX Designer' }}</p>
+                    <p class="about-role text-blue">{{ $about->role ?? 'N/A' }}</p>
                     <p class="about-desc">
-                        {{ $about->description ?? 'I am a Full-Stack Developer and Product Designer focused on creating high-energy systems with fluid interfaces. I bridge the gap between complex backend logic and pixel-perfect design.' }}
+                        {{ $about->description ?? 'N/A' }}
                     </p>
                     <div class="about-details">
                         <div class="detail-row">
                             <span class="detail-label">Birthday</span>
-                            <span class="detail-value">{{ $about->birthday ?? 'Jan 01, 2000' }}</span>
+                            <span class="detail-value">{{ $about->birthday ?? 'N/A' }}</span>
                         </div>
                         <div class="detail-row">
                             <span class="detail-label">Phone</span>
-                            <span class="detail-value">{{ $about->phone ?? '+92 300 0000000' }}</span>
+                            <span class="detail-value">{{ $about->phone ?? 'N/A' }}</span>
                         </div>
                         <div class="detail-row">
                             <span class="detail-label">Email</span>
-                            <span class="detail-value">{{ $about->email ?? 'adeel@example.com' }}</span>
+                            <span class="detail-value">{{ $about->email ?? 'N/A' }}</span>
                         </div>
                         <div class="detail-row">
                             <span class="detail-label">Language</span>
-                            <span class="detail-value">{{ $about->language ?? 'English' }}</span>
+                            <span class="detail-value">{{ $about->language ?? 'N/A' }}</span>
                         </div>
                         <div class="detail-row">
                             <span class="detail-label">From</span>
-                            <span class="detail-value">{{ $about->location ?? 'Karachi, Pakistan' }}</span>
+                            <span class="detail-value">{{ $about->location ?? 'N/A' }}</span>
                         </div>
                         <div class="detail-row">
                             <span class="detail-label">Freelance</span>
-                            <span class="detail-value available">{{ $about->freelance_status ?? 'Available' }}</span>
+                            <span class="detail-value available">{{ $about->freelance_status ?? 'N/A' }}</span>
                         </div>
                     </div>
                     @if (isset($about) && $about->cv_path)
@@ -199,15 +199,15 @@
                         available for freelance and full-time opportunities.</p>
                     <div class="contact-detail">
                         <i class="fas fa-envelope text-blue"></i>
-                        <span>{{ $about->email }}</span>
+                        <span>{{ $about->email ?? 'Email not available' }}</span>
                     </div>
                     <div class="contact-detail">
                         <i class="fas fa-phone text-blue"></i>
-                        <span>{{ $about->phone }}</span>
+                        <span>{{ $about->phone ?? 'Phone not available' }}</span>
                     </div>
                     <div class="contact-detail">
                         <i class="fas fa-map-marker-alt text-blue"></i>
-                        <span>{{ $about->location }}</span>
+                        <span>{{ $about->location ?? 'Location not available' }}</span>
                     </div>
                     <div class="footer-social mt-4">
                         {{-- <a href="#" class="social-link interactive"><i class="fab fa-github"></i></a> --}}
