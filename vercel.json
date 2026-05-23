@@ -1,5 +1,9 @@
 {
   "version": 2,
+  "env": {
+    "APP_STORAGE": "/tmp",
+    "VIEW_COMPILED_PATH": "/tmp/storage/framework/views"
+  },
   "builds": [
     {
       "src": "api/index.php",
@@ -10,4 +14,4 @@
     { "handle": "filesystem" },
     { "src": "/(.*)", "dest": "api/index.php" }
   ]
-}
+}   
