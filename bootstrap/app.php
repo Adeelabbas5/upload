@@ -11,10 +11,15 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function ($middleware) {
-    $middleware->alias([
-        'admin' => \App\Http\Middleware\AdminMiddleware::class,
-    ]);
-})
+        $middleware->alias([
+            'admin' => \App\Http\Middleware\AdminMiddleware::class,
+        ]);
+    })
     ->withExceptions(function (Exceptions $exceptions): void {
-        //
+        // Stop the harmless tempnam() notice from crashing your Vercel deployment
+        $exceptions->render(function (\ErrorException $e) {
+            if (str_contains($e->getMessage(), 'tempnam()')) {
+                return false; 
+            }
+        });
     })->create();

@@ -3,6 +3,15 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 
+
+// Ensure the writable serverless view paths exist inside /tmp
+if (isset($_ENV['VERCEL_JOB_ID']) || isset($_SERVER['VERCEL_COMMIT_ID'])) {
+    $viewPath = '/tmp/storage/framework/views';
+    if (!is_dir($viewPath)) {
+        mkdir($viewPath, 0755, true);
+    }
+}
+
 define('LARAVEL_START', microtime(true));
 
 // Determine if the application is in maintenance mode...
