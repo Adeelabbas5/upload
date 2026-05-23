@@ -11,14 +11,13 @@ $app = Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function ($middleware) {
-        $middleware->alias([
-            'admin' => \App\Http\Middleware\AdminMiddleware::class,
-        ]);
+        //
     })
-    ->withExceptions(function (Exceptions $exceptions): void {
-        // This stops Laravel from trying to load custom error views 
-        // which is what is causing your "Target class [view] does not exist" crash.
-    })
-    ->create();
+    ->withExceptions(function (Exceptions $exceptions) {
+        // Disable custom error view rendering to stop the "Target class [view] does not exist" crash
+        $exceptions->render(function (\Throwable $e) {
+            return response($e->getMessage(), 500);
+        });
+    })->create();
 
 return $app;

@@ -1,10 +1,5 @@
 {
   "version": 2,
-  "env": {
-    "APP_STORAGE": "/tmp",
-    "VIEW_COMPILED_PATH": "/tmp/storage/framework/views",
-    "CACHE_DIR": "/tmp/storage/framework/cache"
-  },
   "builds": [
     {
       "src": "api/index.php",
