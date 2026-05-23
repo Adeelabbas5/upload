@@ -2,7 +2,7 @@
   "version": 2,
   "builds": [
     {
-      "src": "public/index.php",
+      "src": "api/index.php",
       "use": "vercel-php@0.9.0"
     }
   ],
@@ -12,13 +12,17 @@
       "dest": "public/$1/$2"
     },
     {
-      "src": "/robots\\.txt$",
+      "src": "\/(favicon\\.(ico|png))$",
+      "dest": "public/$1"
+    },
+    {
+      "src": "\/robots\\.txt$",
       "dest": "public/robots.txt"
     },
     { "handle": "filesystem" },
     {
       "src": "/(.*)",
-      "dest": "public/index.php"
+      "dest": "api/index.php"
     }
   ]
 }
