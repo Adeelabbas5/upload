@@ -16,10 +16,15 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-        // Stop the harmless tempnam() notice from crashing your Vercel deployment
-        $exceptions->render(function (\ErrorException $e) {
-            if (str_contains($e->getMessage(), 'tempnam()')) {
-                return false; 
-            }
-        });
-    })->create();
+        // Leave empty or add your custom exception handlers here
+    })
+    ->booting(function ($app) {
+        // Force Laravel to look at the writable /tmp partition for view rendering
+        if (isset($_ENV['VERCEL_JOB_ID']) || isset($_SERVER['VERCEL_COMMIT_ID'])) {
+            $app->useStoragePath('/tmp/storage');
+            
+            // Set the explicitly bound path into the view config builder dynamically
+            $app['config']->set('view.compiled', '/tmp/storage/framework/views');
+        }
+    })
+    ->create();

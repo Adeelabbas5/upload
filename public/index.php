@@ -3,17 +3,13 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 
-// 1. Ensure the writable serverless view paths exist inside /tmp
+// Ensure the writable serverless view paths exist inside /tmp
 if (isset($_ENV['VERCEL_JOB_ID']) || isset($_SERVER['VERCEL_COMMIT_ID'])) {
     $viewPath = '/tmp/storage/framework/views';
     if (!is_dir($viewPath)) {
         mkdir($viewPath, 0755, true);
     }
 }
-
-// 2. Adjust error reporting to ignore E_NOTICE warnings on production/Vercel
-// This stops the native tempnam() notice from turning into a fatal 500 error
-error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED);
 
 define('LARAVEL_START', microtime(true));
 
