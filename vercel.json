@@ -8,20 +8,20 @@
   ],
   "routes": [
     {
-      "src": "/(css|js|uploads)/(.*)",
+      "src": "^/(css|js|uploads)/(.*)$",
       "dest": "public/$1/$2"
     },
     {
-      "src": "\/(favicon\\.(ico|png))$",
+      "src": "^/favicon\\.(ico|png)$",
       "dest": "public/$1"
     },
     {
-      "src": "\/robots\\.txt$",
+      "src": "^/robots\\.txt$",
       "dest": "public/robots.txt"
     },
     { "handle": "filesystem" },
     {
-      "src": "/(.*)",
+      "src": "^/(.*)$",
       "dest": "api/index.php"
     }
   ]
