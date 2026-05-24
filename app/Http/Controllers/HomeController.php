@@ -13,9 +13,18 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $services = Cache::remember('home_services', 600, fn() => Service::all());
-        $skills = Cache::remember('home_skills', 600, fn() => Skill::all());
-        $about = Cache::remember('home_about', 600, fn() => About::first());
+        try {
+            $services = Cache::remember('home_services', 600, fn() => Service::all());
+            $skills = Cache::remember('home_skills', 600, fn() => Skill::all());
+            $about = Cache::remember('home_about', 600, fn() => About::first());
+        } catch (\Throwable $e) {
+            // Log the exception and gracefully fallback to empty values when DB is unavailable
+            \Log::error('HomeController@index DB error: ' . $e->getMessage());
+            $services = collect();
+            $skills = collect();
+            $about = null;
+        }
+
         return view('index', compact('services', 'skills', 'about'));
     }
 
@@ -28,8 +37,12 @@ class HomeController extends Controller
             'message' => 'required|string',
         ]);
 
-        Contact::create($request->all());
-
-        return back()->with('success', 'Thank you for your message! I will get back to you soon.');
+        try {
+            Contact::create($request->all());
+            return back()->with('success', 'Thank you for your message! I will get back to you soon.');
+        } catch (\Throwable $e) {
+            \Log::error('HomeController@store DB error: ' . $e->getMessage());
+            return back()->with('error', 'Could not save your message at this time.');
+        }
     }
 }
