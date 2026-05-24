@@ -16,6 +16,7 @@ if (isset($_ENV['VERCEL']) || isset($_ENV['VERCEL_JOB_ID']) || isset($_SERVER['V
     @mkdir("$storagePath/framework/cache", 0755, true);
     @mkdir("$storagePath/logs", 0755, true);
     @mkdir("$storagePath/app", 0755, true);
+    @mkdir('/tmp/views', 0755, true);
     
     $app->useStoragePath($storagePath);
 }

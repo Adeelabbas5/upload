@@ -28,3 +28,5 @@ return [
     Illuminate\View\ViewServiceProvider::class,
 
     // Application service providers
+    AppServiceProvider::class,
+];
