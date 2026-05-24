@@ -7,7 +7,17 @@ $app = new Illuminate\Foundation\Application(
 // Use a writable storage path when running under Vercel / serverless.
 // This keeps Laravel from trying to write into the read-only project tree.
 if (isset($_ENV['VERCEL']) || isset($_ENV['VERCEL_JOB_ID']) || isset($_SERVER['VERCEL_COMMIT_ID'])) {
-    $app->useStoragePath('/tmp/storage');
+    $storagePath = '/tmp/storage';
+    
+    // Ensure directories exist
+    @mkdir($storagePath, 0755, true);
+    @mkdir("$storagePath/framework", 0755, true);
+    @mkdir("$storagePath/framework/views", 0755, true);
+    @mkdir("$storagePath/framework/cache", 0755, true);
+    @mkdir("$storagePath/logs", 0755, true);
+    @mkdir("$storagePath/app", 0755, true);
+    
+    $app->useStoragePath($storagePath);
 }
 
 $app->singleton(
@@ -26,5 +36,3 @@ $app->singleton(
 );
 
 return $app;
-
-?>
